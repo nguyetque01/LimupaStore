@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Confirmation";
+}
+
+<!-- Begin Li's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="active">@ViewData["Title"]</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Li's Breadcrumb Area End Here -->
+<!-- Confirmation Area Start -->
+<div class="error404-area pt-60 pb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="error-wrapper text-center ptb-50 pt-xs-20">
+                    <div class="error-text">
+                        <h2>Comfirmation</h2>
+                        <p>Thank you. Your order has been received.</p>
+                    </div>
+                    <div class="search-error">
+                        <form id="search-form" action="#">
+                            <input type="text" placeholder="Search product ...">
+                            <button><i class="zmdi zmdi-search"></i></button>
+                        </form>
+                    </div>
+                    <div class="error-button" style="display:flex;justify-content:space-evenly">
+                        <a asp-area="Customer" asp-controller="Home" asp-action="Shop">Continue Shopping</a>
+                        <a asp-area="Customer" asp-controller="Home" asp-action="Index">Back to home page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Confirmation Area End -->

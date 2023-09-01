@@ -1,0 +1,11 @@
+﻿@model IEnumerable<TheLoai>
+<li class="dropdown-holder">
+    <a href="#">Categories</a>
+    <ul class="hb-dropdown" style="max-height: 250px; width: 575px">
+        @foreach(var item in Model) 
+        {
+            <li style="float:left; width: 180px"><a asp-area="Customer" asp-controller="Home" asp-action="Shop">@item.Name</a></li>
+        }    
+    </ul>
+</li>
+

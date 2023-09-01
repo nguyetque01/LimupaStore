@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+}
+@model HoaDon
+<div class="container">
+    <h3>Chi Tiết Đơn Hàng</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="checkout-form-list">
+                <label>Tên</label>
+                <input asp-for="Name" type="text">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="checkout-form-list">
+                <label>Địa chỉ</label>
+                <input asp-for="Address" type="text">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="checkout-form-list">
+                <label>Số điện thoại</label>
+                <input asp-for="PhoneNumber" type="text">
+            </div>
+        </div>   
+        <div class="col-md-4">
+            <div class="checkout-form-list">
+                <label>Ngày đặt hàng</label>
+                <input asp-for="OrderDate" type="text">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="checkout-form-list">
+                <label>Tình trạng</label>
+                <input asp-for="OrderStatus" type="text">
+            </div>
+        </div>        
+    </div>
+    <div class="your-order-table table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="cart-product-name">Product</th>
+                    <th class="cart-product-total">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ChiTietHoaDon)
+                {
+                    <tr class="cart_item">
+                        <td class="cart-product-name">@item.SanPham.Name<strong class="product-quantity"> x @item.Quantity</strong></td>
+                        <td class="cart-product-total"><span class="amount">@String.Format("{0:0,0}", item.ProductPrice) VND</span></td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr class="cart-subtotal">
+                    <th>Cart Subtotal</th>
+                    <td><span class="amount">@String.Format("{0:0,0}", Model.Total) VND</span></td>
+                </tr>
+                <tr class="order-total">
+                    <th>Order Total</th>
+                    <td><strong><span class="amount">@String.Format("{0:0,0}", Model.Total) VND</span></strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <a asp-action="Index" class="btn btn-secondary">Trở về</a>
+</div>
+

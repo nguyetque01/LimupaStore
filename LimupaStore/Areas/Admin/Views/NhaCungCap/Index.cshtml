@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nhà cung cấp</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach(var item in @ViewBag.NCC) 
+        {
+            <tbody>
+                <tr>
+                    <td width="15%">@item.Id</td>
+                    <td width="20%">@item.Name</td>
+                    <td width="20%">@item.Address</td>
+                    <td width="15%">@item.PhoneNumber</td>
+                    <td width="30%">
+                        <a class="btn btn-primary mr-10" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-secondary mr-10" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                     </td>
+                </tr>
+            </tbody> 
+        }
+    </table>
+    <a asp-action="Create" class="btn btn-primary">Thêm mới</a>
+</div>
+

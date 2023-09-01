@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<li class="dropdown-holder">
+    <a href="#">Admin</a>
+    <ul class="hb-dropdown">
+        <li><a asp-area="Admin" asp-controller="SanPham" asp-action="Index">Sản phẩm</a></li>
+        <li ><a asp-area="Admin" asp-controller="TheLoai" asp-action="Index">Thể loại</a></li>
+        <li><a asp-area="Admin" asp-controller="NhaCungCap" asp-action="Index">Nhà cung cấp</a></li>
+        <li><a asp-area="Admin" asp-controller="DonHang" asp-action="Index">Đơn hàng</a></li>
+    </ul>
+</li>

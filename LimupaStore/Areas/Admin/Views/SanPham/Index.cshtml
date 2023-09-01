@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="table-content table-responsive">
+        <table class="table" id="tableSanPham">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Sản phẩm</th>
+                    <th>Mô tả</th>
+                    <th>Giá</th>
+                    <th>Hình ảnh</th>
+                    <th>Thể loại</th>
+                    <th>Nhà cung cấp</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            
+        </table>
+    </div>
+    <a asp-controller="SanPham" asp-action="Upsert" class="btn btn-primary">Thêm mới</a>
+</div>
+
+<script>
+    const xoa = (id, row) =>{   
+        swal({
+            title: "Bạn có chắc muốn xóa?",
+            text: "Một khi xóa, dữ liệu sẽ không thể khôi phục!",
+            icon: "warning",
+            buttons: ["Không", "Có"],
+            dangerMode: true
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: `SanPham/Delete/${id}`,
+                    type: "POST"
+                })
+                .done(function (data) {
+                    row.closest("tr").remove();
+                    swal("Xóa thành công!", {
+                        icon: "success",
+                    });
+                })
+                .fail(function () {
+                    swal("Xóa thất bại!", {
+                        icon: "error",
+                    });
+                })
+            }
+        });
+    }
+</script>
+
+<!-- Datatables -->
+ @section scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+
+    <script>
+        $(document).ready(function() {
+            $('#tableSanPham').DataTable({
+                lengthMenu: [5, 10, 20],
+                ajax: {
+                    url: "SanPham/GetListSanPham",
+                    type: "GET",
+                    datatype: "json"
+                },
+                columns: [
+                    {
+                        data: "id",
+                        width: "10%",
+                        sortable: true,
+                        searchable: true
+                    },
+                    { 
+                        data: "name",                       
+                        width: "10%",
+                        sortable: true,
+                        searchable: true
+                    },                    
+                    {   
+                        data: "description", 
+                        width: "15%",
+                        sortable: false,
+                        searchable: true
+                    },
+                    {
+                        data: "price",
+                        width: "10%",
+                        render: function (data, type) {
+                            if (type == 'display')
+                                return $.fn.dataTable.render.number('.', ',', 0, '', ' đ').display(data);
+                            else
+                                return data;
+                        },
+                        sortable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "image[, ].imageURL",
+                        width: "15%",
+                        render: function (data, type, row, meta) {       
+                            var url = data;
+                            if (url.includes(","))
+                                url = url.substr(0, url.indexOf(","));
+                            return "<img src=" + '../' + JSON.stringify(url).slice(1, -1) + " height='120px'/>";
+                        },
+                        sortable: false,
+                        searchable: false
+                    },
+                    {
+                        data: "theLoai[, ].name", 
+                        width: "10%",
+                        sortable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "nhaCungCap.name",
+                        width: "10%",
+                        sortable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "id",
+                        width: "20%", 
+                        render: function (data, type, row, meta) {
+                            return "<a class='btn btn-primary' href='SanPham/Upsert/" + JSON.stringify(data) + "'>Cập nhật</a>   " +
+                                "<a class='btn btn-danger' href='#' onclick='xoa(" + JSON.stringify(data) + ", $(this))'>Xóa</a>";
+                        },
+                        sortable: false,
+                        searchable: false
+                    },
+                ]
+
+            });
+        })
+        
+    </script>
+}

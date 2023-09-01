@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+@model IEnumerable<HoaDon>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tên</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Tình trạng</th>
+                <th>Tổng cộng</th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tbody>
+                <tr>
+                    <td width="15%">@item.Id</td>
+                    <td width="15%">@item.Name</td>
+                    <td width="15%">@item.PhoneNumber</td>
+                    <td width="15%">@item.Address</td>
+                    <td width="15%">@item.OrderStatus</td>
+                    <td width="15%">@String.Format("{0:0,0} VND", item.Total)</td>
+                    <td width="15%">
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Chi Tiết</a>
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+

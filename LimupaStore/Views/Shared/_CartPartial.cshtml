@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <vc:gio-hang></vc:gio-hang>
+}
+else
+{
+    <div class="hm-minicart-trigger" >        
+        <span class="item-icon"></span>
+        <span class="item-text"></span>       
+    </div>
+    <span></span>
+    <div class="minicart">    
+        <div style:"padding: 0 45px">
+            <img src="~/images/cart/empty-cart.png" width="100%">           
+        </div>        
+        <p style:"padding: 0 20px; style="text-align:center; font-size:14px">Vui lòng đăng nhập để xem thông tin giỏ hàng!</p>
+        <div class="minicart-button">
+            <a asp-area="Identity" asp-page="/Account/Login" class="li-button li-button-fullwidth">
+                <span>Login</span>
+            </a>
+        </div>
+    </div>
+}
